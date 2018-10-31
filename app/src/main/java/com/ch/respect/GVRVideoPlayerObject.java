@@ -1,9 +1,7 @@
 package com.ch.respect;
 
-import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
-import android.net.Uri;
 
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRMesh;
@@ -31,6 +29,7 @@ public class GVRVideoPlayerObject extends GVRSceneObject {
         mPlayer = GVRVideoSceneObject.makePlayerInstance(mMediaPlayer);
 
         GVRVideoSceneObject video = new GVRVideoSceneObject(gvrContext, mesh, mPlayer, GVRVideoSceneObject.GVRVideoType.MONO);
+
         video.getTransform().setScale(100f, 100f, 100f);
 
         addChildObject(video);
@@ -47,11 +46,9 @@ public class GVRVideoPlayerObject extends GVRSceneObject {
 
             mMediaPlayer.setDataSource(fileName);
             mMediaPlayer.prepare();
-
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException | IllegalArgumentException e) {
             e.printStackTrace();
         }
-
     }
 
     public void play() {
